@@ -165,7 +165,7 @@ function updateComments(selected_content, selected_question){
                 if(d.reply_count !== null){
                     count = d.reply_count;
                 }
-                return `${count} comentários para a seguinte resposta -> ${d.text}` });
+                return `[${count} comentários] -> ${d.text}` });
         options.append("p")
             //.attr("value", (d) => { return d.id })
             .text((d) => { return d.text });

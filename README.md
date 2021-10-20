@@ -1,3 +1,2 @@
-# strateegia-basic-login
-Simple login to strateegia API
-- JS, HTML, CSS
+# strateegia-foundational-activities
+mapeando para foundational activities

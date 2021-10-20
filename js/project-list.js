@@ -141,6 +141,14 @@ function updateComments(selected_content, selected_question){
     getParentComments(access_token, selected_content, selected_question).then(comments => {
         console.log("printing comments");
         console.log(comments);
+        processedComments = [];
+        // comments.content.forEach(item => {
+        //     let toAdd = {
+        //         id: item.id,
+
+        //     };
+        // });
+        comments.content.sort(function (a,b) {return d3.descending(a.reply_count, b.reply_count);});
         let options = d3.select("#comments-list")
             .on("change", () => {
                 // Print the selected question id
@@ -152,7 +160,12 @@ function updateComments(selected_content, selected_question){
         options.enter()
             .append("p")
             //.attr("value", (d) => { return d.id })
-            .text((d) => { return d.text });
+            .text((d) => { 
+                let count = 0;
+                if(d.reply_count !== null){
+                    count = d.reply_count;
+                }
+                return `${count} comentários para a seguinte resposta -> ${d.text}` });
         options.append("p")
             //.attr("value", (d) => { return d.id })
             .text((d) => { return d.text });

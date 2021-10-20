@@ -148,7 +148,7 @@ function updateComments(selected_content, selected_question){
 
         //     };
         // });
-        comments.content.sort(function (a,b) {return d3.descending(a.reply_count, b.reply_count);});
+        comments.content.sort(function (a,b) {return d3.descending(a.reply_count + a.agreement_count, b.reply_count + b.agreement_count);});
         let options = d3.select("#comments-list")
             .on("change", () => {
                 // Print the selected question id
@@ -161,11 +161,16 @@ function updateComments(selected_content, selected_question){
             .append("p")
             //.attr("value", (d) => { return d.id })
             .text((d) => { 
-                let count = 0;
+                let r_count = 0;
                 if(d.reply_count !== null){
-                    count = d.reply_count;
+                    r_count = d.reply_count;
                 }
-                return `[${count} comentários] ${d.text}` });
+                let a_count = 0;
+                if(d.agreement_count !== null){
+                    a_count = d.agreement_count;
+                }
+                let total_count = r_count + a_count;
+                return `[${r_count} comentários]+[${a_count} concordar]=[${total_count} total] ${d.text}` });
         options.append("p")
             //.attr("value", (d) => { return d.id })
             .text((d) => { return d.text });
